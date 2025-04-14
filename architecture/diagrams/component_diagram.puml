@@ -1,0 +1,89 @@
+@startuml Knowledge Garden Component Diagram
+
+' Define component styles
+skinparam component {
+  BackgroundColor #F8F8F8
+  BorderColor #888888
+  ArrowColor #888888
+}
+
+' Main subsystems as components
+package "Knowledge Garden Platform" {
+  [User Management Subsystem] as UserMgmt
+  [Resource Management Subsystem] as ResourceMgmt
+  [Search & Discovery Subsystem] as Search
+  [Tagging & Categorization Subsystem] as Tagging
+  [Collaboration Subsystem] as Collab
+  [Feedback & Rating Subsystem] as Feedback
+  [Analytics & Insights Subsystem] as Analytics
+  [Infrastructure Subsystem] as Infra
+}
+
+' Define interfaces
+interface "Authentication API" as AuthAPI
+interface "Resource API" as ResourceAPI
+interface "Search API" as SearchAPI
+interface "Tagging API" as TaggingAPI
+interface "Collaboration API" as CollabAPI
+interface "Rating API" as RatingAPI
+interface "Analytics API" as AnalyticsAPI
+interface "Infrastructure Services" as InfraAPI
+
+' Connect components to their interfaces
+UserMgmt -- AuthAPI
+ResourceMgmt -- ResourceAPI
+Search -- SearchAPI
+Tagging -- TaggingAPI
+Collab -- CollabAPI
+Feedback -- RatingAPI
+Analytics -- AnalyticsAPI
+Infra -- InfraAPI
+
+' Define relationships between subsystems
+UserMgmt <-- ResourceMgmt : "Authenticates users"
+UserMgmt <-- Search : "Authenticates users"
+UserMgmt <-- Collab : "Authenticates users"
+UserMgmt <-- Feedback : "Authenticates users"
+UserMgmt <-- Analytics : "Provides user data"
+
+ResourceMgmt --> Tagging : "Resources are tagged"
+ResourceMgmt <-- Collab : "Resources are discussed"
+ResourceMgmt <-- Feedback : "Resources are rated"
+ResourceMgmt --> Analytics : "Resource usage tracked"
+
+Search --> ResourceMgmt : "Indexes resources"
+Search --> Tagging : "Uses tags for search"
+
+Tagging --> Analytics : "Tag usage tracked"
+
+Collab --> Analytics : "Collaboration activity tracked"
+
+Feedback --> Analytics : "Rating data analyzed"
+
+Infra -- UserMgmt
+Infra -- ResourceMgmt
+Infra -- Search
+Infra -- Tagging
+Infra -- Collab
+Infra -- Feedback
+Infra -- Analytics
+
+' External systems
+[Client Applications] as Client
+[Institutional SSO] as SSO
+[External Storage] as Storage
+[AI Services] as AI
+
+' Connect external systems
+Client --> AuthAPI
+Client --> ResourceAPI
+Client --> SearchAPI
+Client --> CollabAPI
+Client --> RatingAPI
+
+UserMgmt <-- SSO : "Authenticate via institutional SSO"
+ResourceMgmt <--> Storage : "Store/retrieve resources"
+Search <--> AI : "AI-powered search"
+Tagging <--> AI : "Auto-tagging with ML"
+
+@enduml

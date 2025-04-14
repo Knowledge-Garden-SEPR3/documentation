@@ -1,0 +1,160 @@
+@startuml MVC Pattern Class Diagram
+
+' Define styles
+skinparam class {
+  BackgroundColor #F8F8F8
+  BorderColor #888888
+  ArrowColor #888888
+}
+
+package "Resource Service MVC" {
+  ' Model layer
+  package "Models" {
+    class ResourceModel {
+      - schema: MongooseSchema
+      + findById(id: string): Promise<Resource>
+      + create(data: any): Promise<Resource>
+      + update(id: string, data: any): Promise<Resource>
+      + delete(id: string): Promise<boolean>
+      + findByTags(tags: string[]): Promise<Resource[]>
+      + findByUser(userId: string): Promise<Resource[]>
+    }
+    
+    class VersionModel {
+      - schema: MongooseSchema
+      + findByResourceId(resourceId: string): Promise<Version[]>
+      + create(data: any): Promise<Version>
+      + getLatest(resourceId: string): Promise<Version>
+    }
+    
+    class CollectionModel {
+      - schema: MongooseSchema
+      + findById(id: string): Promise<Collection>
+      + create(data: any): Promise<Collection>
+      + addResource(id: string, resourceId: string): Promise<Collection>
+      + removeResource(id: string, resourceId: string): Promise<Collection>
+      + findByUser(userId: string): Promise<Collection[]>
+    }
+  }
+  
+  ' Controller layer
+  package "Controllers" {
+    class ResourceController {
+      - resourceService: ResourceService
+      + getResource(req: Request, res: Response): Promise<void>
+      + createResource(req: Request, res: Response): Promise<void>
+      + updateResource(req: Request, res: Response): Promise<void>
+      + deleteResource(req: Request, res: Response): Promise<void>
+      + getResourcesByTag(req: Request, res: Response): Promise<void>
+      + getResourcesByUser(req: Request, res: Response): Promise<void>
+    }
+    
+    class VersionController {
+      - versionService: VersionService
+      + getVersions(req: Request, res: Response): Promise<void>
+      + createVersion(req: Request, res: Response): Promise<void>
+      + getLatestVersion(req: Request, res: Response): Promise<void>
+    }
+    
+    class CollectionController {
+      - collectionService: CollectionService
+      + getCollection(req: Request, res: Response): Promise<void>
+      + createCollection(req: Request, res: Response): Promise<void>
+      + addToCollection(req: Request, res: Response): Promise<void>
+      + removeFromCollection(req: Request, res: Response): Promise<void>
+      + getUserCollections(req: Request, res: Response): Promise<void>
+    }
+  }
+  
+  ' View/Response layer
+  package "Views" {
+    class ResourceResponseFormatter {
+      + formatResource(resource: Resource): ResourceDTO
+      + formatResourceList(resources: Resource[]): ResourceListDTO
+      + formatError(error: Error): ErrorDTO
+    }
+    
+    class VersionResponseFormatter {
+      + formatVersion(version: Version): VersionDTO
+      + formatVersionList(versions: Version[]): VersionListDTO
+      + formatError(error: Error): ErrorDTO
+    }
+    
+    class CollectionResponseFormatter {
+      + formatCollection(collection: Collection): CollectionDTO
+      + formatCollectionList(collections: Collection[]): CollectionListDTO
+      + formatError(error: Error): ErrorDTO
+    }
+  }
+  
+  ' Service layer (connects models and controllers)
+  package "Services" {
+    class ResourceService {
+      - resourceModel: ResourceModel
+      - validator: ResourceValidator
+      + getResourceById(id: string): Promise<Resource>
+      + createResource(data: any): Promise<Resource>
+      + updateResource(id: string, data: any): Promise<Resource>
+      + deleteResource(id: string): Promise<boolean>
+      + findByTags(tags: string[]): Promise<Resource[]>
+      + findByUser(userId: string): Promise<Resource[]>
+    }
+    
+    class VersionService {
+      - versionModel: VersionModel
+      + getVersionsByResourceId(resourceId: string): Promise<Version[]>
+      + createVersion(data: any): Promise<Version>
+      + getLatestVersion(resourceId: string): Promise<Version>
+    }
+    
+    class CollectionService {
+      - collectionModel: CollectionModel
+      - validator: CollectionValidator
+      + getCollectionById(id: string): Promise<Collection>
+      + createCollection(data: any): Promise<Collection>
+      + addResourceToCollection(id: string, resourceId: string): Promise<Collection>
+      + removeResourceFromCollection(id: string, resourceId: string): Promise<Collection>
+      + getUserCollections(userId: string): Promise<Collection[]>
+    }
+  }
+
+  ' Routes (connect API endpoints to controllers)
+  package "Routes" {
+    class ResourceRoutes {
+      - router: Router
+      - resourceController: ResourceController
+      + setupRoutes(): Router
+    }
+    
+    class VersionRoutes {
+      - router: Router
+      - versionController: VersionController
+      + setupRoutes(): Router
+    }
+    
+    class CollectionRoutes {
+      - router: Router
+      - collectionController: CollectionController
+      + setupRoutes(): Router
+    }
+  }
+}
+
+' Relationships
+ResourceController --> ResourceService : uses >
+VersionController --> VersionService : uses >
+CollectionController --> CollectionService : uses >
+
+ResourceService --> ResourceModel : uses >
+VersionService --> VersionModel : uses >
+CollectionService --> CollectionModel : uses >
+
+ResourceController --> ResourceResponseFormatter : uses >
+VersionController --> VersionResponseFormatter : uses >
+CollectionController --> CollectionResponseFormatter : uses >
+
+ResourceRoutes --> ResourceController : routes to >
+VersionRoutes --> VersionController : routes to >
+CollectionRoutes --> CollectionController : routes to >
+
+@enduml

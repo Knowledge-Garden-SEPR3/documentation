@@ -1,0 +1,80 @@
+@startuml Factory and Criteria Patterns Class Diagram
+
+' Define styles
+skinparam class {
+  BackgroundColor #F8F8F8
+  BorderColor #888888
+  ArrowColor #888888
+}
+
+' Resource base class
+abstract class Resource {
+  - id: string
+  - title: string
+  - description: string
+  - createdBy: User
+  - createdAt: Date
+  - tags: Tag[]
+  - rating: number
+  + getInfo(): ResourceInfo
+  + {abstract} render(): void
+  + {abstract} download(): void
+}
+
+' Concrete resource types
+class DocumentResource {
+  - fileType: string
+  - pageCount: number
+  - annotations: Annotation[]
+  + render(): void
+  + download(): void
+  + addAnnotation(annotation: Annotation): void
+}
+
+class VideoResource {
+  - duration: number
+  - format: string
+  - thumbnailUrl: string
+  + render(): void
+  + download(): void
+  + generateThumbnail(): string
+}
+
+class ImageResource {
+  - width: number
+  - height: number
+  - format: string
+  + render(): void
+  + download(): void
+  + resize(width: number, height: number): ImageResource
+}
+
+' Resource Factory
+class ResourceFactory {
+  + createResource(type: string, data: any): Resource
+  - validateData(type: string, data: any): boolean
+  - registerResourceType(type: string, constructor: Function): void
+}
+
+' Resource Criteria
+class ResourceCriteria {
+  + {static} filterBySubject(resources: Resource[], subject: string): Resource[]
+  + {static} filterByRating(resources: Resource[], minRating: number): Resource[]
+  + {static} filterByTag(resources: Resource[], tag: Tag): Resource[]
+  + {static} filterByDate(resources: Resource[], startDate: Date, endDate: Date): Resource[]
+  + {static} search(resources: Resource[], query: string): Resource[]
+}
+
+' Relationships
+Resource <|-- DocumentResource
+Resource <|-- VideoResource
+Resource <|-- ImageResource
+
+ResourceFactory ..> Resource : creates >
+ResourceFactory ..> DocumentResource : creates >
+ResourceFactory ..> VideoResource : creates >
+ResourceFactory ..> ImageResource : creates >
+
+ResourceCriteria ..> Resource : filters >
+
+@enduml

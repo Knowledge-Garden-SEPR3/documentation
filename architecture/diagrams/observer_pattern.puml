@@ -1,0 +1,65 @@
+@startuml Observer Pattern Class Diagram
+
+' Define styles
+skinparam class {
+  BackgroundColor #F8F8F8
+  BorderColor #888888
+  ArrowColor #888888
+}
+
+' Observer pattern core classes
+interface Observer {
+  + update(data: any): void
+}
+
+abstract class NotificationSubject {
+  - observers: Observer[]
+  + subscribe(observer: Observer): void
+  + unsubscribe(observer: Observer): void
+  + notify(data: any): void
+}
+
+' Concrete implementations for Knowledge Garden
+class CollaborationNotifier {
+  - resourceId: string
+  - collaborators: User[]
+  + notifyEdit(edit: Edit): void
+  + notifyJoin(user: User): void
+  + notifyLeave(user: User): void
+}
+
+class DiscussionNotifier {
+  - threadId: string
+  - participants: User[]
+  + notifyNewComment(comment: Comment): void
+  + notifyMention(mention: Mention): void
+}
+
+class UserNotificationManager {
+  - userId: string
+  - preferences: NotificationPreferences
+  + update(data: any): void
+  + markAsRead(notificationId: string): void
+  + getUnreadCount(): number
+}
+
+class RealTimeClient {
+  - socket: WebSocket
+  - connected: boolean
+  + update(data: any): void
+  + connect(): void
+  + disconnect(): void
+}
+
+' Relationships
+NotificationSubject <|-- CollaborationNotifier
+NotificationSubject <|-- DiscussionNotifier
+Observer <|.. UserNotificationManager
+Observer <|.. RealTimeClient
+
+CollaborationNotifier o-- "0..*" UserNotificationManager : notifies >
+DiscussionNotifier o-- "0..*" UserNotificationManager : notifies >
+CollaborationNotifier o-- "0..*" RealTimeClient : broadcasts to >
+DiscussionNotifier o-- "0..*" RealTimeClient : broadcasts to >
+
+@enduml
