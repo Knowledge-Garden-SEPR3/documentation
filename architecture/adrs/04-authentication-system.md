@@ -1,10 +1,13 @@
 # ADR 4: Authentication System
 
 ## Status
+
 Accepted
 
 ## Context
+
 The Knowledge Garden platform requires a secure, scalable authentication system that supports:
+
 - Multiple authentication methods (email/password, institutional login)
 - Role-based access control for students, faculty, and administrators
 - Secure access to resources and features based on permissions
@@ -15,6 +18,7 @@ The Knowledge Garden platform requires a secure, scalable authentication system 
 We need to select an appropriate authentication approach that meets these requirements while maintaining security, usability, and performance.
 
 ## Decision
+
 We will implement a **JWT-based authentication system with OAuth 2.0 support**, leveraging a dedicated **Auth Service** within our microservices architecture.
 
 ## Rationale
@@ -54,12 +58,14 @@ We will implement a **JWT-based authentication system with OAuth 2.0 support**, 
 ### Architecture Components:
 
 1. **Auth Service**: Core service responsible for:
+
    - User registration and credential management
    - Token issuance and validation
    - OAuth integration
    - Role and permission management
 
 2. **Identity Providers**: Integration with:
+
    - Internal user database
    - Institutional SSO systems
    - Potentially other OAuth providers (Google, Microsoft)
@@ -71,10 +77,12 @@ We will implement a **JWT-based authentication system with OAuth 2.0 support**, 
 ### Alternatives Considered:
 
 1. **Session-Based Authentication**:
+
    - Advantages: Simpler to implement, easier to revoke
    - Disadvantages: Requires shared session storage, less suitable for microservices, potential scalability issues
 
 2. **Direct LDAP/Active Directory Integration**:
+
    - Advantages: Direct integration with institutional systems
    - Disadvantages: Less standardized, more complex to maintain, limited to specific institutions
 
@@ -85,6 +93,7 @@ We will implement a **JWT-based authentication system with OAuth 2.0 support**, 
 ## Consequences
 
 ### Positive:
+
 - Improved scalability with stateless authentication
 - Better security through standard, well-tested protocols
 - Flexibility to support multiple authentication methods
@@ -92,17 +101,20 @@ We will implement a **JWT-based authentication system with OAuth 2.0 support**, 
 - Clear separation of authentication concerns
 
 ### Negative:
+
 - Need to manage JWT secret keys securely
 - Potential security risks if JWTs are not properly implemented
 - More complex token validation and revocation strategies
 - Additional development effort compared to third-party solutions
 
 ### Neutral:
+
 - Will require education on JWT best practices for the team
 - Need for careful monitoring and auditing of authentication events
 - Regular security reviews of authentication implementation
 
 ## Implementation Considerations
+
 - Implement short-lived access tokens with refresh token rotation
 - Use HTTPS for all communications
 - Store JWT secret keys in secure key management systems
@@ -113,6 +125,7 @@ We will implement a **JWT-based authentication system with OAuth 2.0 support**, 
 - Implement CSRF protection where applicable
 
 ## Related Decisions
+
 - This decision is influenced by ADR 2: Backend Architecture (microservices)
 - Will need to consider implications for frontend authentication (ADR 1)
 - Related to database decisions (ADR 3) for user data storage

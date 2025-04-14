@@ -1,6 +1,7 @@
 # Knowledge Garden - Project Todo List
 
 ## Task 1: Requirements and Subsystems
+
 - [x] Review project proposal and deliverable guidelines
 - [x] Document functional requirements in detail
 - [x] Document non-functional requirements in detail
@@ -9,6 +10,7 @@
 - [x] Create a component diagram showing subsystem relationships
 
 ## Task 2: Architecture Framework
+
 - [x] Identify stakeholders following IEEE 42010 standard
 - [x] Document stakeholder concerns
 - [x] Define viewpoints and views addressing these concerns
@@ -19,6 +21,7 @@
   - [x] ADR 4: Authentication system
 
 ## Task 3: Architectural Tactics and Patterns
+
 - [x] Document 4-5 architectural tactics:
   - [x] Performance tactics
   - [x] Security tactics
@@ -34,6 +37,7 @@
 - [x] Create UML diagrams for key patterns
 
 ## Task 4: Prototype Implementation
+
 - [ ] Set up project structure
 - [ ] Implement core components:
   - [ ] User authentication system
@@ -57,6 +61,7 @@
   - [ ] Search indexing
 
 ## Task 5: Testing and Analysis
+
 - [ ] Implement unit tests for critical components
 - [ ] Conduct performance testing
 - [ ] Analyze architecture against alternative patterns
@@ -64,6 +69,7 @@
 - [ ] Document trade-offs and findings
 
 ## Task 6: Documentation and Submission
+
 - [ ] Create comprehensive README
 - [ ] Write technical report
 - [ ] Include architectural diagrams in documentation
@@ -71,6 +77,7 @@
 - [ ] Prepare final submission package
 
 ## Progress Tracking
+
 - Current priority: Task 4 - Setting up project structure and implementing core components
 - Days until soft deadline: 3 days (April 17, 2025)
 - Days until hard deadline: 10 days (April 24, 2025)

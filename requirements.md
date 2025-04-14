@@ -3,12 +3,14 @@
 ## Functional Requirements
 
 ### 1. User Management
+
 - FR1.1: Users shall be able to register with email/password or institutional login
 - FR1.2: Users shall be able to create and customize personal profiles
 - FR1.3: The system shall support role-based permissions (student, faculty, admin)
 - FR1.4: Users shall be able to reset their passwords via email
 
 ### 2. Resource Management
+
 - FR2.1: Users shall be able to upload academic resources in various formats (PDF, DOC, PPT, images, videos)
 - FR2.2: Users shall be able to organize resources into collections/folders
 - FR2.3: The system shall automatically generate thumbnails for uploaded resources
@@ -17,6 +19,7 @@
 - FR2.6: Users shall be able to download resources for offline access
 
 ### 3. Search & Filtering
+
 - FR3.1: The system shall provide AI-powered natural language search functionality
 - FR3.2: Users shall be able to filter resources by multiple criteria (subject, type, date, rating)
 - FR3.3: The system shall provide auto-suggest functionality during search
@@ -24,6 +27,7 @@
 - FR3.5: The system shall maintain search history for each user
 
 ### 4. Tagging & Categorization
+
 - FR4.1: The system shall auto-tag resources using machine learning
 - FR4.2: Users shall be able to add custom tags to resources
 - FR4.3: The system shall maintain a taxonomy of academic subjects and topics
@@ -31,6 +35,7 @@
 - FR4.5: The system shall suggest related tags when users are adding their own
 
 ### 5. Discussion Forums & Collaboration
+
 - FR5.1: Users shall be able to create discussion threads linked to resources
 - FR5.2: Users shall be able to reply to existing threads and comments
 - FR5.3: The system shall support real-time chat rooms for study groups
@@ -39,6 +44,7 @@
 - FR5.6: Users shall be able to collaborate on documents in real-time
 
 ### 6. Rating & Reviews
+
 - FR6.1: Users shall be able to rate resources on a 5-star scale
 - FR6.2: Users shall be able to write detailed reviews of resources
 - FR6.3: The system shall calculate and display average ratings
@@ -46,6 +52,7 @@
 - FR6.5: Users shall be able to mark reviews as helpful or unhelpful
 
 ### 7. Resource Annotation
+
 - FR7.1: Users shall be able to highlight text in documents
 - FR7.2: Users shall be able to add comments to specific sections of documents
 - FR7.3: Users shall be able to see annotations made by other users (with permissions)
@@ -53,6 +60,7 @@
 - FR7.5: Users shall be able to export documents with annotations
 
 ### 8. Analytics & Insights
+
 - FR8.1: The system shall track and display resource usage statistics
 - FR8.2: Users shall be able to view their own activity dashboards
 - FR8.3: Faculty and admins shall be able to view aggregated analytics
@@ -62,6 +70,7 @@
 ## Non-Functional Requirements
 
 ### 1. Performance
+
 - NFR1.1: The system shall support up to 500 concurrent users
 - NFR1.2: Resource retrieval shall have a latency under 2 seconds
 - NFR1.3: Page load time shall not exceed 3 seconds on standard broadband
@@ -69,6 +78,7 @@
 - NFR1.5: File uploads shall process at a minimum rate of 1MB per second
 
 ### 2. Availability & Scalability
+
 - NFR2.1: The system shall maintain 95% uptime
 - NFR2.2: The system shall be scalable to handle at least 5,000+ documents
 - NFR2.3: The system shall implement load balancing for high traffic periods
@@ -76,6 +86,7 @@
 - NFR2.5: The system shall implement automatic backup procedures
 
 ### 3. Security & Privacy
+
 - NFR3.1: All data in transit shall be encrypted using TLS 1.2 or higher
 - NFR3.2: User passwords shall be stored using strong hashing algorithms
 - NFR3.3: The system shall implement role-based access control
@@ -83,6 +94,7 @@
 - NFR3.5: The system shall comply with relevant data protection regulations
 
 ### 4. Usability
+
 - NFR4.1: Users shall be able to access any major feature within 3 clicks
 - NFR4.2: The UI shall maintain a consistent design language throughout
 - NFR4.3: The system shall be fully responsive across mobile, tablet, and desktop devices
@@ -90,6 +102,7 @@
 - NFR4.5: New users shall be able to upload their first resource within 5 minutes of registration
 
 ### 5. Reliability & Resilience
+
 - NFR5.1: The system shall recover from failures within 10 minutes
 - NFR5.2: The system shall implement appropriate error handling and user feedback
 - NFR5.3: No single point of failure shall exist in the architecture

@@ -1,10 +1,13 @@
 # ADR 3: Database Technology
 
 ## Status
+
 Accepted
 
 ## Context
+
 The Knowledge Garden platform manages diverse types of data including:
+
 - User profiles and authentication information
 - Academic resources in various formats
 - Complex metadata including tags, categories, and taxonomies
@@ -15,6 +18,7 @@ The Knowledge Garden platform manages diverse types of data including:
 We need to select appropriate database technologies that can efficiently store and query this diverse data while supporting our performance requirements (500 concurrent users, resource retrieval under 2 seconds) and providing scalability for future growth.
 
 ## Decision
+
 We will implement a **Polyglot Persistence** approach with:
 
 1. **MongoDB** as our primary document database for most content and metadata
@@ -69,14 +73,17 @@ We will implement a **Polyglot Persistence** approach with:
 ### Alternatives Considered:
 
 1. **Single Relational Database (e.g., PostgreSQL only)**:
+
    - Advantages: Simpler architecture, strong consistency, mature technology
    - Disadvantages: Less flexibility for unstructured data, potential performance limitations at scale, more complex schema evolution
 
 2. **Single Document Database (e.g., MongoDB only)**:
+
    - Advantages: Simplicity, schema flexibility, good performance for most operations
    - Disadvantages: Lacks specialized capabilities for search and real-time features, less suitable for complex transactions
 
 3. **NewSQL Solutions (e.g., CockroachDB)**:
+
    - Advantages: Combines SQL with horizontal scalability
    - Disadvantages: Less mature ecosystem, potentially higher operational complexity
 
@@ -87,23 +94,27 @@ We will implement a **Polyglot Persistence** approach with:
 ## Consequences
 
 ### Positive:
+
 - Optimized data storage and retrieval for different types of data and access patterns
 - Better scalability for different workloads
 - Specialized capabilities for search and real-time features
 - Flexibility to evolve different parts of the data model independently
 
 ### Negative:
+
 - Increased operational complexity managing multiple database technologies
 - Data synchronization and consistency challenges across databases
 - Need for additional expertise in multiple database technologies
 - More complex backup and recovery procedures
 
 ### Neutral:
+
 - Will require clear guidelines for which data belongs in which database
 - Need for robust data synchronization mechanisms between databases
 - More sophisticated monitoring and operational practices
 
 ## Implementation Considerations
+
 - Implement a data access layer that abstracts database specifics from services
 - Use change data capture (CDC) for synchronizing data between databases
 - Implement robust backup and recovery procedures for all databases
@@ -112,6 +123,7 @@ We will implement a **Polyglot Persistence** approach with:
 - Implement comprehensive monitoring for all database instances
 
 ## Related Decisions
+
 - This decision is influenced by ADR 2: Backend Architecture (microservices approach)
 - Will impact implementation of search capabilities and real-time features
 - Will require consideration in authentication system design (ADR 4)

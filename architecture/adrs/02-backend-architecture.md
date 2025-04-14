@@ -1,10 +1,13 @@
 # ADR 2: Backend Architecture
 
 ## Status
+
 Accepted
 
 ## Context
+
 The Knowledge Garden platform requires a robust, scalable, and maintainable backend architecture that can support:
+
 - Multiple concurrent users (up to 500 as per NFR1.1)
 - Complex data relationships between users, resources, tags, and comments
 - Real-time collaboration features
@@ -15,6 +18,7 @@ The Knowledge Garden platform requires a robust, scalable, and maintainable back
 We need to select an appropriate backend architecture that can fulfill these requirements while maintaining performance and allowing for future scalability.
 
 ## Decision
+
 We will implement a **Microservices Architecture** using **Node.js** with **Express.js** for our backend services.
 
 ## Rationale
@@ -42,6 +46,7 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 2. **Service Discovery**: For services to locate and communicate with each other.
 
 3. **Microservices**:
+
    - User Service: Authentication, profiles, and permissions
    - Resource Service: Upload, storage, and delivery of academic resources
    - Search Service: Indexing and searching capabilities
@@ -57,10 +62,12 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 ### Alternatives Considered:
 
 1. **Monolithic Architecture**:
+
    - Advantages: Simpler development and deployment, less network overhead
    - Disadvantages: Less scalable, harder to maintain as the system grows, single point of failure
 
 2. **Serverless Architecture**:
+
    - Advantages: Automatic scaling, reduced operational complexity
    - Disadvantages: Potential cold start latency, less suitable for long-running processes like real-time collaboration
 
@@ -71,6 +78,7 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 ## Consequences
 
 ### Positive:
+
 - Improved scalability for individual components
 - Better fault isolation and system resilience
 - Flexibility to use specialized technologies where appropriate
@@ -78,6 +86,7 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 - Ability to deploy updates to specific services without affecting the entire system
 
 ### Negative:
+
 - Increased complexity in deployment and operations
 - Network overhead from inter-service communication
 - Potential data consistency challenges across services
@@ -85,10 +94,12 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 - Need for additional infrastructure components (API gateway, service discovery)
 
 ### Neutral:
+
 - Will require establishing clear service boundaries and interfaces
 - Teams will need to adopt microservices development practices and tooling
 
 ## Implementation Considerations
+
 - We will use Docker for containerization of services
 - Kubernetes for orchestration and deployment
 - API documentation using OpenAPI (Swagger)
@@ -97,6 +108,7 @@ We will implement a **Microservices Architecture** using **Node.js** with **Expr
 - Implement consistent error handling and API response formats
 
 ## Related Decisions
+
 - This decision is influenced by ADR 1: Frontend Framework Selection
 - Will impact ADR 3: Database Technology, as different services might use different data stores
 - Will require specific considerations in ADR 4: Authentication System for securing microservices
